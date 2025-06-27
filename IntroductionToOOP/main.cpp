@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 class Point
@@ -30,11 +30,11 @@ void main()
 {
 	setlocale(LC_ALL, "");
 #ifdef SRTUCT_POINT
-	Point A; // Объявление переменной 'А' типа Point
-			// Создание объекта 'А' структуры Point
-			// Создание экземпляра 'А' структуры Point
+	Point A; // РћР±СЉСЏРІР»РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ 'Рђ' С‚РёРїР° Point
+			// РЎРѕР·РґР°РЅРёРµ РѕР±СЉРµРєС‚Р° 'Рђ' СЃС‚СЂСѓРєС‚СѓСЂС‹ Point
+			// РЎРѕР·РґР°РЅРёРµ СЌРєР·РµРјРїР»СЏСЂР° 'Рђ' СЃС‚СЂСѓРєС‚СѓСЂС‹ Point
 			// 'A' is instance of struct 'Point'
-			// Instantiate - создать объект.
+			// Instantiate - СЃРѕР·РґР°С‚СЊ РѕР±СЉРµРєС‚.
 	A.x = 2;
 	A.y = 3;
 	cout << A.x << "\t" << A.y << endl;
