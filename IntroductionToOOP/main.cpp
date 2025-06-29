@@ -1,5 +1,7 @@
 ﻿#include<iostream>
 #include <math.h>
+#define tab ((i >= 10) ? " " : "  ")
+#define tab2 ((i >= 10) ? "" : " ")
 using namespace std;
 
 class Point
@@ -55,20 +57,27 @@ public:
 		double gptnz = sqrt(aaa * aaa + bbb * bbb);
 		return gptnz;
 	}
+	
 	void Graf(double x, double y, double xx, double yy)
 	{
 		setlocale(LC_ALL, "C");
-		cout << '\x20' << "Y" << endl;
-		cout << '\x20' << '\x1E' << endl;
-		cout << '\x20' << '\xB3' << endl;
+		
+		cout << '\x20' << '\x20' << '\x20' << "Y" << endl;
+		cout << '\x20' << '\x20' << '\x20' << '\x1E' << endl;
+		cout << '\x20' << '\x20' << '\x20' << '\xB3' << endl;
 		for (int i = ((y > yy ? y : yy)+1); i > 0; i--)
 		{
 			
 			if (i == (y +1) && i == (yy + 1))
 			{
-				cout << i << '\xB3';
+				cout<< tab<< i << '\xB3';
 				for (int i = 1; i < (x > xx ? x : xx)+1; i++)
 				{
+					if (i == x && i == xx)
+					{
+						cout << "a&b";
+						continue;
+					}
 					if (i == x)
 					{
 						cout << "a";
@@ -79,14 +88,14 @@ public:
 						cout << "b";
 						continue;
 					}
-					cout << '\x20';
+					/*if(i==x||i==y)*/cout << '\x20'<< '\x20';
 				}
 				cout << endl;
 				continue;
 			}
 			if (i == y&&i==yy)
 			{
-				cout << i << '\xB3';
+				cout << tab << i << '\xB3';
 				for (int i = 1; i < (x > xx ? x : xx)+1; i++)
 				{
 					if (i == x)
@@ -99,31 +108,36 @@ public:
 						cout << '\xFD';
 						continue;
 					}
-					cout << '\x20';
+					cout << '\x20'<< ".";
 				}
 				cout << endl;
 				continue;
 			}
 			if (i == y&&i!=yy)
 			{
-				cout << i << '\xB3';
-				for (int i = 0; i < x - 1; i++)cout << '\x20';
+				cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
+				for (int i = 0; i < x - 1; i++)cout << '\x20' << ".";
 				cout << "\xFD" << "a" << endl;
 				continue;
 			}
 			if (i == yy&&i!=y)
 			{
-				cout << i << '\xB3';
-				for (int i = 0; i < xx - 1; i++)cout << '\x20';
+				cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
+				for (int i = 0; i < xx - 1; i++)cout << '\x20'<< ".";
 				cout << "\xFD" << "b" << endl;
 				continue;
 			}
-			cout << i << '\xB3' << endl;
+			cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
+			for (int ii = 1; ii < (x > xx ? x : xx) + 1; ii++)
+			{
+				if ((ii == x&&i<y) || (ii == xx&&i<yy))cout << ". "; else cout << "  ";
+			}
+			cout << endl;
 		}
-		cout << '\x20' << '\xC5';
-		for (int i = 0; i < (x > xx ? x : xx) + 2; i++)cout << '\xC4';
-		cout << '\x10' << "X" << endl << '\x20' << '\x20';
-		for (int i = 1; i < (x > xx ? x : xx) + 2; i++)cout << i;
+		cout <<  '\x20'<<  '\x20' <<'\x20' << '\xC5';
+		for (int i = 0; i < (x > xx ? x : xx) + 2; i++)cout << '\xC4'<<'\xC4';
+		cout << '\x10' << "X" << endl <<  '\x20' << '\x20'<< '\x20'<< '\x20';
+		for (int i = 1; i < (x > xx ? x : xx) + 2; i++)cout << i<< tab2;
 		cout << endl;
 		setlocale(LC_ALL, "");
 	}
@@ -149,9 +163,10 @@ void main()
 #endif
 
 	Point A;
-	double x, y, xx, yy;
-	cout << "Введите координаты первой точки  (x,y) : "; cin >> x >> y;
-	cout << "Введите координаты второй точки (xх,yу): "; cin >> xx >> yy;
+	//double x, y, xx, yy;
+	double x = 4, y = 4, xx = 11, yy = 11;/*
+	cout << "Введите координаты первой точки, значением до 99  (x,y) : "; cin >> x >> y;
+	cout << "Введите координаты второй точки, значением до 99 (xх,yу): "; cin >> xx >> yy;*/
 	/*if (x != 0 && y != 0)
 	{*/
 		A.set_x(x);
