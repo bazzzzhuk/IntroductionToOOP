@@ -58,12 +58,11 @@ public:
 	{
 		setlocale(LC_ALL, "C");
 		
-		cout << '\x20' << '\x20' << '\x20' << "Y" << endl;
-		cout << '\x20' << '\x20' << '\x20' << '\x1E' << endl;
-		cout << '\x20' << '\x20' << '\x20' << '\xB3' << endl;
+		cout << "   " << "Y" << endl;
+		cout << "   " << '\x1E' << endl;
+		cout << "   " << '\xB3' << endl;
 		for (int i = ((y > yy ? y : yy)+1); i > 0; i--)
 		{
-			
 			if (i == (y +1) && i == (yy + 1))
 			{
 				cout<< tab<< i << '\xB3';
@@ -130,9 +129,9 @@ public:
 			}
 			cout << endl;
 		}
-		cout <<  '\x20'<<  '\x20' <<'\x20' << '\xC5';
+		cout << "   " << '\xC5';
 		for (int i = 0; i < (x > xx ? x : xx) + 2; i++)cout << '\xC4'<<'\xC4';
-		cout << '\x10' << "X" << endl <<  '\x20' << '\x20'<< '\x20'<< '\x20';
+		cout << '\x10' << "X" << endl <<  "    ";
 		for (int i = 1; i < (x > xx ? x : xx) + 2; i++)cout << i<< tab2;
 		cout << endl;
 		setlocale(LC_ALL, "");
