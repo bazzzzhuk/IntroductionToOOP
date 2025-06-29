@@ -1,10 +1,13 @@
 ﻿#include<iostream>
+#include <math.h>
 using namespace std;
 
 class Point
 {
 	double x;
 	double y;
+	double xx;
+	double yy;
 public:
 	double get_x()const
 	{
@@ -21,6 +24,36 @@ public:
 	void set_y(double y)
 	{
 		this->y = y;
+	}
+	double get_xx()const
+	{
+		return xx;
+	}
+	double get_yy()const
+	{
+		return yy;
+	}
+	void set_xx(double xx)
+	{
+		this->xx = xx;
+	}
+	void set_yy(double yy)
+	{
+		this->yy = yy;
+	}
+	double distance(double a,double b)const
+	{
+		double gptnz=sqrt(a * a + b * b);
+		return gptnz;
+	}
+	double distance(double a,double b,double aa,double bb)const
+	{
+		double aaa, bbb;
+		if (a > aa)aaa = a - aa; else aaa = aa - a;
+		if (b > bb)bbb = b - bb; else bbb = bb - b;
+
+		double gptnz=sqrt(aaa * aaa + bbb * bbb);
+		return gptnz;
 	}
 };
 
@@ -44,7 +77,16 @@ void main()
 #endif
 
 	Point A;
-	A.set_x(2);
-	A.set_y(3);
+	double x, y, xx, yy;
+	cout << "Введите координаты первой точки (x,y): "; cin >> x >> y;
+	cout << "Введите координаты второй точки (xх,yу): "; cin >> xx >> yy;
+	A.set_x(x);
+	A.set_y(y);
+	A.set_xx(xx);
+	A.set_yy(yy);
+
 	cout << A.get_x() << "\t" << A.get_y() << endl;
+	
+	cout << "Расстояние до точки: " << A.distance(A.get_x(), A.get_y())<<endl;
+	cout << "Расстояние между точками: " << A.distance(A.get_x(), A.get_y(), A.get_xx(), A.get_yy()) << endl;
 }
