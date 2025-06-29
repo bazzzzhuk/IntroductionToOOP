@@ -45,17 +45,13 @@ public:
 	}
 	double distance(double a, double b)const
 	{
-		double gptnz = sqrt(a * a + b * b);
-		return gptnz;
+		return sqrt(a * a + b * b);
 	}
 	double distance(double a, double b, double aa, double bb)const
 	{
-		double aaa, bbb;
-		if (a > aa)aaa = a - aa; else aaa = aa - a;
-		if (b > bb)bbb = b - bb; else bbb = bb - b;
-
-		double gptnz = sqrt(aaa * aaa + bbb * bbb);
-		return gptnz;
+		double aaa = (a > aa? a - aa:aa - a);
+		double bbb = (b > bb? b - bb:bb - b);
+		return sqrt(aaa * aaa + bbb * bbb);
 	}
 	
 	void Graf(double x, double y, double xx, double yy)
@@ -88,7 +84,7 @@ public:
 						cout << "b";
 						continue;
 					}
-					/*if(i==x||i==y)*/cout << '\x20'<< '\x20';
+					cout << '\x20'<< '\x20';
 				}
 				cout << endl;
 				continue;
