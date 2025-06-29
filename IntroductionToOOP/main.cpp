@@ -100,12 +100,12 @@ public:
 				{
 					if (i == x)
 					{
-						cout << '\xFD';
+						cout << '\x0F';
 						continue;
 					}
 					if (i == xx)
 					{
-						cout << '\xFD';
+						cout << '\x0F';
 						continue;
 					}
 					cout << '\x20'<< ".";
@@ -117,14 +117,14 @@ public:
 			{
 				cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
 				for (int i = 0; i < x - 1; i++)cout << '\x20' << ".";
-				cout << "\xFD" << "a" << endl;
+				cout << "\x0F" << "a" << endl;
 				continue;
 			}
 			if (i == yy&&i!=y)
 			{
 				cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
 				for (int i = 0; i < xx - 1; i++)cout << '\x20'<< ".";
-				cout << "\xFD" << "b" << endl;
+				cout << "\x0F" << "b" << endl;
 				continue;
 			}
 			cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
