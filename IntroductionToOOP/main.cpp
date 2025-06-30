@@ -3,8 +3,7 @@
 #define tab ((i >= 10) ? " " : "  ")
 #define tab2 ((i >= 10) ? "" : " ")
 using namespace std;
-//double distance(Point* pA, Point* pB);
-
+//
 
 class Point
 {
@@ -34,9 +33,6 @@ public:
 	{
 		return sqrt(a * a + b * b);
 	}
-	
-	
-	
 };
 
 //#define SRTUCT_POINT
@@ -124,6 +120,14 @@ void Graf(double x, double y, double xx, double yy)
 	setlocale(LC_ALL, "");
 }
 
+
+double distance(Point A, Point B)
+{
+	double xx = A.get_x() - B.get_x();
+	double yy = A.get_y() - B.get_y();
+	return sqrt(xx * xx + yy * yy);
+}
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -147,29 +151,19 @@ void main()
 	Point* pA = &A;
 	Point* pB = &B;
 	//double x, y, xx, yy;
-	double x = 4, y = 4, xx = 11, yy = 11;/*
+	double x = 4, y = 4, xx = 11, yy = 4;/*
 	cout << "Введите координаты первой точки, значениями до 99  (x,y) : "; cin >> x >> y;
 	cout << "Введите координаты второй точки, значениями до 99 (xх,yу): "; cin >> xx >> yy;*/
-	/*if (x != 0 && y != 0)
-	{*/
+	
 		A.set_x(x);
 		A.set_y(y);
-	/*}
-	if (xx != 0 && yy != 0)//хотел перегрузить
-	{*/
+	
 		B.set_x(xx);
 		B.set_y(yy);
-	//}
-
+	
 	//cout << A.get_x() << "\t" << A.get_y() << endl;
 	Graf(A.get_x(), A.get_y(), B.get_x(), B.get_y());
 	cout << "Расстояние от нуля до точки: " << A.distance(A.get_x(), A.get_y()) << endl;
 	cout << "Расстояние от нуля до точки B: " << B.distance(B.get_x(), B.get_y()) << endl;
-	cout << "Расстояние между точками  A&B  : " << distance(pA,pB) << endl;
-}
-double distance(Point* pA, Point* pB)
-{
-	double xx = pA->get_x() - pB->get_x();
-	double yy = pA->get_y() - pB->get_y();
-	return sqrt(xx * xx + yy * yy);
+	cout << "Расстояние между точками  A&B  : " << distance(A,B) << endl;
 }
