@@ -3,15 +3,13 @@
 #define tab ((i >= 10) ? " " : "  ")
 #define tab2 ((i >= 10) ? "" : " ")
 using namespace std;
-#define DISTANCECHECK
-//#define SRTUCT_POINT
 
+#define delimiter "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
 class Point
 {
 	double x;
 	double y;
-	double xx;
-	double yy;
+
 public:
 	double get_x()const
 	{
@@ -29,10 +27,43 @@ public:
 	{
 		this->y = y;
 	}
-	
-	double distance(double a, double b)const
+	/*Point()
 	{
-		return sqrt(a * a + b * b);
+		x = y = 0;
+		cout << "DEF CONSTR :" << this << endl;
+	}*/
+	/*Point(double x)
+	{
+		this->x = x;
+		this->y = 0;
+		cout << "SingleArgumenConstructor: " << this << endl;
+	}*/
+	Point(double x=0, double y=0)
+	{
+		this->x = x;
+		this->y = y;
+		cout << "Constructor: " << this << endl;
+	}
+	~Point()
+	{
+		cout << "DEstr CONSTR :" << this << endl;
+	}
+	Point(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "COPYDistructor: " << this << endl;
+	}
+
+	double distance(const Point& other)const
+	{
+		const double xx = this->get_x() - other.get_x();
+		const double yy = this->get_y() - other.get_y();
+		return sqrt(xx * xx + yy * yy);
+	}
+	void print()const
+	{
+		cout << this << ":\tX= " << x << ",\tY= " << y << endl;
 	}
 };
 
@@ -121,12 +152,15 @@ void Graf(double x, double y, double xx, double yy)
 }
 
 
-double distance(Point A, Point B)
+double distance(const Point& A,const Point& B)
 {
 	double xx = A.get_x() - B.get_x();
 	double yy = A.get_y() - B.get_y();
 	return sqrt(xx * xx + yy * yy);
 }
+#define DISTANCECHECK
+//#define SRTUCT_POINT
+//#define CONSTRUCTOR_CHECK
 
 void main()
 {
@@ -148,24 +182,42 @@ void main()
 	Point A;
 	Point B;
 
-	Point* pA = &A;
-	Point* pB = &B;
+	//Point* pA = &A;
+	//Point* pB = &B;
 	//double x, y, xx, yy;
 	double x = 4, y = 4, xx = 11, yy = 11;/*
 	cout << "Введите координаты первой точки, значениями до 99  (x,y) : "; cin >> x >> y;
 	cout << "Введите координаты второй точки, значениями до 99 (xх,yу): "; cin >> xx >> yy;*/
-	
-		A.set_x(x);
-		A.set_y(y);
-	
-		B.set_x(xx);
-		B.set_y(yy);
-	
+
+	A.set_x(x);
+	A.set_y(y);
+
+	B.set_x(xx);
+	B.set_y(yy);
+	cout << delimiter << endl;
 	//cout << A.get_x() << "\t" << A.get_y() << endl;
 	Graf(A.get_x(), A.get_y(), B.get_x(), B.get_y());
-	cout << "Расстояние от нуля до точки: " << A.distance(A.get_x(), A.get_y()) << endl;
-	cout << "Расстояние от нуля до точки B: " << B.distance(B.get_x(), B.get_y()) << endl;
-	cout << "Расстояние между точками  A&B  : " << distance(B,A) << endl;
+	cout << delimiter << endl;
+	cout << "Расстояние от нуля до точки: " << A.distance(B) << endl;
+	const double rast = A.distance(B);
+	cout << "RAST= " << rast << endl;
+	cout << delimiter << endl;
+	cout << "Расстояние от нуля до точки B: " << B.distance(A) << endl;
+	cout << delimiter << endl;
+	cout << "Расстояние между точками  A&B  : " << distance(B, A) << endl;
+	cout << delimiter << endl;
 #endif
-	
+#ifdef CONSTRUCTOR_CHECK
+	Point A;
+	A.print();
+
+	Point B = 5; //singleArgumentConstructor - конструктор с одним параметром
+	B.print();
+
+	Point C(5,8);
+	C.print();
+
+	Point D = C; // COPY Constructor
+	D.print();
+#endif
 }
