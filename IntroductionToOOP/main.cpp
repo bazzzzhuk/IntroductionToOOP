@@ -3,7 +3,8 @@
 #define tab ((i >= 10) ? " " : "  ")
 #define tab2 ((i >= 10) ? "" : " ")
 using namespace std;
-//
+#define DISTANCECHECK
+//#define SRTUCT_POINT
 
 class Point
 {
@@ -35,7 +36,6 @@ public:
 	}
 };
 
-//#define SRTUCT_POINT
 
 void Graf(double x, double y, double xx, double yy)
 {
@@ -144,14 +144,14 @@ void main()
 	Point* pA = &A;
 	cout << pA->x << "\t" << pA->y << endl;
 #endif
-
+#ifdef DISTANCECHECK
 	Point A;
 	Point B;
 
 	Point* pA = &A;
 	Point* pB = &B;
 	//double x, y, xx, yy;
-	double x = 4, y = 4, xx = 11, yy = 4;/*
+	double x = 4, y = 4, xx = 11, yy = 11;/*
 	cout << "Введите координаты первой точки, значениями до 99  (x,y) : "; cin >> x >> y;
 	cout << "Введите координаты второй точки, значениями до 99 (xх,yу): "; cin >> xx >> yy;*/
 	
@@ -165,5 +165,7 @@ void main()
 	Graf(A.get_x(), A.get_y(), B.get_x(), B.get_y());
 	cout << "Расстояние от нуля до точки: " << A.distance(A.get_x(), A.get_y()) << endl;
 	cout << "Расстояние от нуля до точки B: " << B.distance(B.get_x(), B.get_y()) << endl;
-	cout << "Расстояние между точками  A&B  : " << distance(A,B) << endl;
+	cout << "Расстояние между точками  A&B  : " << distance(B,A) << endl;
+#endif
+	
 }
