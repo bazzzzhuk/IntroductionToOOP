@@ -54,7 +54,6 @@ public:
 		this->y = other.y;
 		cout << "COPYDistructor: " << this << endl;
 	}
-
 	double distance(const Point& other)const
 	{
 		const double xx = this->get_x() - other.get_x();
@@ -66,8 +65,6 @@ public:
 		cout << this << ":\tX= " << x << ",\tY= " << y << endl;
 	}
 };
-
-
 void Graf(double x, double y, double xx, double yy)
 {
 	setlocale(LC_ALL, "C");
@@ -150,8 +147,6 @@ void Graf(double x, double y, double xx, double yy)
 	cout << endl;
 	setlocale(LC_ALL, "");
 }
-
-
 double distance(const Point& A,const Point& B)
 {
 	double xx = A.get_x() - B.get_x();
@@ -161,7 +156,6 @@ double distance(const Point& A,const Point& B)
 #define DISTANCECHECK
 //#define SRTUCT_POINT
 //#define CONSTRUCTOR_CHECK
-
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -181,9 +175,6 @@ void main()
 #ifdef DISTANCECHECK
 	Point A;
 	Point B;
-
-	//Point* pA = &A;
-	//Point* pB = &B;
 	//double x, y, xx, yy;
 	double x = 4, y = 4, xx = 11, yy = 11;/*
 	cout << "Введите координаты первой точки, значениями до 99  (x,y) : "; cin >> x >> y;
@@ -199,8 +190,6 @@ void main()
 	Graf(A.get_x(), A.get_y(), B.get_x(), B.get_y());
 	cout << delimiter << endl;
 	cout << "Расстояние от нуля до точки: " << A.distance(B) << endl;
-	const double rast = A.distance(B);
-	cout << "RAST= " << rast << endl;
 	cout << delimiter << endl;
 	cout << "Расстояние от нуля до точки B: " << B.distance(A) << endl;
 	cout << delimiter << endl;
