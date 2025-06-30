@@ -3,6 +3,8 @@
 #define tab ((i >= 10) ? " " : "  ")
 #define tab2 ((i >= 10) ? "" : " ")
 using namespace std;
+//double distance(Point* pA, Point* pB);
+
 
 class Point
 {
@@ -27,118 +29,100 @@ public:
 	{
 		this->y = y;
 	}
-	double get_xx()const
-	{
-		return xx;
-	}
-	double get_yy()const
-	{
-		return yy;
-	}
-	void set_xx(double xx)
-	{
-		this->xx = xx;
-	}
-	void set_yy(double yy)
-	{
-		this->yy = yy;
-	}
+	
 	double distance(double a, double b)const
 	{
 		return sqrt(a * a + b * b);
 	}
-	double distance(double a, double b, double aa, double bb)const
-	{
-		double aaa = (a > aa? a - aa:aa - a);
-		double bbb = (b > bb? b - bb:bb - b);
-		return sqrt(aaa * aaa + bbb * bbb);
-	}
 	
-	void Graf(double x, double y, double xx, double yy)
-	{
-		setlocale(LC_ALL, "C");
-		
-		cout << "   " << "Y" << endl;
-		cout << "   " << '\x1E' << endl;
-		cout << "   " << '\xB3' << endl;
-		for (int i = ((y > yy ? y : yy)+1); i > 0; i--)
-		{
-			if (i == (y +1) && i == (yy + 1))
-			{
-				cout<< tab<< i << '\xB3';
-				for (int i = 1; i < (x > xx ? x : xx)+1; i++)
-				{
-					if (i == x && i == xx)
-					{
-						cout << "a&b";
-						continue;
-					}
-					if (i == x)
-					{
-						cout << "a";
-						continue;
-					}
-					if (i == xx)
-					{
-						cout << "b";
-						continue;
-					}
-					cout << '\x20'<< '\x20';
-				}
-				cout << endl;
-				continue;
-			}
-			if (i == y&&i==yy)
-			{
-				cout << tab << i << '\xB3';
-				for (int i = 1; i < (x > xx ? x : xx)+1; i++)
-				{
-					if (i == x)
-					{
-						cout << '\x0F';
-						continue;
-					}
-					if (i == xx)
-					{
-						cout << '\x0F';
-						continue;
-					}
-					cout << '\x20'<< ".";
-				}
-				cout << endl;
-				continue;
-			}
-			if (i == y&&i!=yy)
-			{
-				cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
-				for (int i = 0; i < x - 1; i++)cout << '\x20' << ".";
-				cout << "\x0F" << "a" << endl;
-				continue;
-			}
-			if (i == yy&&i!=y)
-			{
-				cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
-				for (int i = 0; i < xx - 1; i++)cout << '\x20'<< ".";
-				cout << "\x0F" << "b" << endl;
-				continue;
-			}
-			cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
-			for (int ii = 1; ii < (x > xx ? x : xx) + 1; ii++)
-			{
-				if ((ii == x&&i<y) || (ii == xx&&i<yy))cout << ". "; else cout << "  ";
-			}
-			cout << endl;
-		}
-		cout << "   " << '\xC5';
-		for (int i = 0; i < (x > xx ? x : xx) + 2; i++)cout << '\xC4'<<'\xC4';
-		cout << '\x10' << "X" << endl <<  "    ";
-		for (int i = 1; i < (x > xx ? x : xx) + 2; i++)cout << i<< tab2;
-		cout << endl;
-		setlocale(LC_ALL, "");
-	}
+	
+	
 };
 
 //#define SRTUCT_POINT
+
+void Graf(double x, double y, double xx, double yy)
+{
+	setlocale(LC_ALL, "C");
+
+	cout << "   " << "Y" << endl;
+	cout << "   " << '\x1E' << endl;
+	cout << "   " << '\xB3' << endl;
+	for (int i = ((y > yy ? y : yy) + 1); i > 0; i--)
+	{
+		if (i == (y + 1) && i == (yy + 1))
+		{
+			cout << tab << i << '\xB3';
+			for (int i = 1; i < (x > xx ? x : xx) + 1; i++)
+			{
+				if (i == x && i == xx)
+				{
+					cout << "a&b";
+					continue;
+				}
+				if (i == x)
+				{
+					cout << "a";
+					continue;
+				}
+				if (i == xx)
+				{
+					cout << "b";
+					continue;
+				}
+				cout << '\x20' << '\x20';
+			}
+			cout << endl;
+			continue;
+		}
+		if (i == y && i == yy)
+		{
+			cout << tab << i << '\xB3';
+			for (int i = 1; i < (x > xx ? x : xx) + 1; i++)
+			{
+				if (i == x)
+				{
+					cout << '\x0F';
+					continue;
+				}
+				if (i == xx)
+				{
+					cout << '\x0F';
+					continue;
+				}
+				cout << '\x20' << ".";
+			}
+			cout << endl;
+			continue;
+		}
+		if (i == y && i != yy)
+		{
+			cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
+			for (int i = 0; i < x - 1; i++)cout << '\x20' << ".";
+			cout << "\x0F" << "a" << endl;
+			continue;
+		}
+		if (i == yy && i != y)
+		{
+			cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
+			for (int i = 0; i < xx - 1; i++)cout << '\x20' << ".";
+			cout << "\x0F" << "b" << endl;
+			continue;
+		}
+		cout << ((i >= 10) ? " " : "  ") << i << '\xB3';
+		for (int ii = 1; ii < (x > xx ? x : xx) + 1; ii++)
+		{
+			if ((ii == x && i < y) || (ii == xx && i < yy))cout << ". "; else cout << "  ";
+		}
+		cout << endl;
+	}
+	cout << "   " << '\xC5';
+	for (int i = 0; i < (x > xx ? x : xx) + 2; i++)cout << '\xC4' << '\xC4';
+	cout << '\x10' << "X" << endl << "    ";
+	for (int i = 1; i < (x > xx ? x : xx) + 2; i++)cout << i << tab2;
+	cout << endl;
+	setlocale(LC_ALL, "");
+}
 
 void main()
 {
@@ -158,6 +142,10 @@ void main()
 #endif
 
 	Point A;
+	Point B;
+
+	Point* pA = &A;
+	Point* pB = &B;
 	//double x, y, xx, yy;
 	double x = 4, y = 4, xx = 11, yy = 11;/*
 	cout << "Введите координаты первой точки, значениями до 99  (x,y) : "; cin >> x >> y;
@@ -169,12 +157,19 @@ void main()
 	/*}
 	if (xx != 0 && yy != 0)//хотел перегрузить
 	{*/
-		A.set_xx(xx);
-		A.set_yy(yy);
+		B.set_x(xx);
+		B.set_y(yy);
 	//}
 
 	//cout << A.get_x() << "\t" << A.get_y() << endl;
-	A.Graf(A.get_x(), A.get_y(), A.get_xx(), A.get_yy());
+	Graf(A.get_x(), A.get_y(), B.get_x(), B.get_y());
 	cout << "Расстояние от нуля до точки: " << A.distance(A.get_x(), A.get_y()) << endl;
-	cout << "Расстояние между точками   : " << A.distance(A.get_x(), A.get_y(), A.get_xx(), A.get_yy()) << endl;
+	cout << "Расстояние от нуля до точки B: " << B.distance(B.get_x(), B.get_y()) << endl;
+	cout << "Расстояние между точками  A&B  : " << distance(pA,pB) << endl;
+}
+double distance(Point* pA, Point* pB)
+{
+	double xx = pA->get_x() - pB->get_x();
+	double yy = pA->get_y() - pB->get_y();
+	return sqrt(xx * xx + yy * yy);
 }
