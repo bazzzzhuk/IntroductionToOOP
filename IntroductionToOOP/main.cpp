@@ -38,21 +38,28 @@ public:
 		this->y = 0;
 		cout << "SingleArgumenConstructor: " << this << endl;
 	}*/
-	Point(double x=0, double y=0)
+	Point(double x = 0, double y = 0)
 	{
 		this->x = x;
 		this->y = y;
-		cout << "Constructor: " << this << endl;
+		cout << "Constructor:\t\t\t" << this << endl;
 	}
 	~Point()
 	{
-		cout << "DEstr CONSTR :" << this << endl;
+		cout << "Destraction Constructor:\t" << this << endl;
+	}
+	Point operator=(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyAssignment:\t\t" << this << endl;
+		return *this;
 	}
 	Point(const Point& other)
 	{
 		this->x = other.x;
 		this->y = other.y;
-		cout << "COPYDistructor: " << this << endl;
+		cout << "COPY constructor:\t\t" << this << endl;
 	}
 	double distance(const Point& other)const
 	{
@@ -60,6 +67,7 @@ public:
 		const double yy = this->get_y() - other.get_y();
 		return sqrt(xx * xx + yy * yy);
 	}
+
 	void print()const
 	{
 		cout << this << ":\tX= " << x << ",\tY= " << y << endl;
@@ -147,15 +155,23 @@ void Graf(double x, double y, double xx, double yy)
 	cout << endl;
 	setlocale(LC_ALL, "");
 }
-double distance(const Point& A,const Point& B)
+double distance(const Point& A, const Point& B)
 {
 	double xx = A.get_x() - B.get_x();
 	double yy = A.get_y() - B.get_y();
 	return sqrt(xx * xx + yy * yy);
 }
-#define DISTANCECHECK
+Point operator+(const Point& left, const Point& right)
+{
+	Point result;
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());
+	return result;
+}
+//#define DISTANCECHECK
 //#define SRTUCT_POINT
 //#define CONSTRUCTOR_CHECK
+//#define ASSIGNMENTCHECK
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -203,10 +219,21 @@ void main()
 	Point B = 5; //singleArgumentConstructor - конструктор с одним параметром
 	B.print();
 
-	Point C(5,8);
+	Point C(5, 8);
 	C.print();
 
 	Point D = C; // COPY Constructor
 	D.print();
 #endif
+
+#ifdef ASSIGNMENTCHECK
+	Point E;//Default constructor
+	E = D; //Assignment operator
+	E.print();
+#endif
+	Point A(2, 3);
+Point B(7, 8);
+Point C = A + B;
+C.print();
+
 }
