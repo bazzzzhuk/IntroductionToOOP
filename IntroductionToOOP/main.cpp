@@ -48,12 +48,25 @@ public:
 	{
 		cout << "Destraction Constructor:\t" << this << endl;
 	}
-	Point operator=(const Point& other)
+	Point& operator=(const Point& other)
 	{
 		this->x = other.x;
 		this->y = other.y;
 		cout << "CopyAssignment:\t\t" << this << endl;
 		return *this;
+	}
+	Point& operator++()//prefix increment
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int) // Postfix (Suffix) increment
+	{
+		Point old = *this;//сохраняем старое значение объекта
+		x++;
+		y++;
+		return old;
 	}
 	Point(const Point& other)
 	{
@@ -168,6 +181,19 @@ Point operator+(const Point& left, const Point& right)
 	result.set_y(left.get_y() + right.get_y());
 	return result;
 }
+bool operator==(const Point& left, const Point& right)
+{
+	if (left.get_x() == right.get_x() && left.get_y() == right.get_y())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
 //#define DISTANCECHECK
 //#define SRTUCT_POINT
 //#define CONSTRUCTOR_CHECK
@@ -235,5 +261,9 @@ void main()
 Point B(7, 8);
 Point C = A + B;
 C.print();
+
+A = B++;
+A.print();
+B.print();
 
 }
