@@ -74,7 +74,7 @@ public:
 		cout << "Destructor:\t\t" << this << endl;
 	}
 	///      OPERATORS   ///
-	Fraction& operator=(const Fraction& other)
+	Fraction& operator=(const Fraction& other)// =
 	{
 		this->integer = other.integer;
 		this->numerator = other.numerator;
@@ -83,7 +83,18 @@ public:
 		return *this;
 	}
 	///   Methods  ///
-
+	Fraction to_improper()
+	{
+		numerator += integer * denominator;
+		integer = 0;
+		return *this;
+	}
+	Fraction& to_proper()
+	{
+		integer += numerator / denominator;
+		numerator %= denominator;
+		return *this;
+	}
 	void print()const
 	{
 		if (integer)cout << integer;
@@ -98,7 +109,32 @@ public:
 	}
 };
 
-#define CONSTRUCTORS_CHECK
+Fraction operator*(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+
+	/*
+	Fraction rezult;
+	rezult.set_numerator(left.get_numerator() * right.get_numerator());
+	rezult.set_denominator(left.get_denominator() * right.get_denominator());
+	return rezult;*/
+
+	/*Fraction rezult
+	(
+		left.get_numerator() * right.get_numerator(),
+		left.get_denominator() * right.get_denominator()
+	);
+	rezult.to_proper();
+	return rezult;
+	*/
+
+	return Fraction(
+		left.get_numerator() * right.get_numerator(),
+		left.get_denominator() * right.get_denominator()
+		).to_proper();
+} 
+//#define CONSTRUCTORS_CHECK
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -116,5 +152,12 @@ void main()
 	Fraction D(2, 3, 4);
 	D.print();
 #endif
+	Fraction A(1, 2, 3);
+	A.print();
+	Fraction B(2, 3, 4);
+	B.print();
+
+	Fraction C = A * B;
+	C.print();
 
 }
