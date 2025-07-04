@@ -1,9 +1,14 @@
 #include<iostream>
 using namespace std;
 
+// 1. Для класса 'Fraction' перегрузить все арифметические операторы : / , +, -; DONE
+// 2. Перегрузить составные присваивания : +=, -=, *=, /=;
+// 3. Перегрузить Incremento / Decremento(++/ --);
+// 4. Перегрузить операторы сравнения : == , != , > , < , >= , <= ;
+
 class Fraction
 {
-	int integer; 
+	int integer;
 	int numerator;
 	int denominator;
 public:
@@ -32,7 +37,7 @@ public:
 		if (denominator == 0)denominator = 1;
 		this->denominator = denominator;
 	}
-	//		Constructors		//
+	//		Constructors	//
 	Fraction()
 	{
 		this->integer = 0;
@@ -54,7 +59,6 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor:\t\t" << this << endl;
 	}
-
 	Fraction(int integer, int numerator, int denominator)
 	{
 		this->integer = integer;
@@ -62,6 +66,7 @@ public:
 		this->set_denominator(denominator);
 		cout << "Constructor:\t\t" << this << endl;
 	}
+	//    CopyConstructor    //
 	Fraction(const Fraction& other)
 	{
 		this->integer = other.integer;
@@ -69,11 +74,12 @@ public:
 		this->denominator = other.denominator;
 		cout << "CopyConstruction:\t" << this << endl;
 	}
+	//    Destructor    //
 	~Fraction()
 	{
 		cout << "Destructor:\t\t" << this << endl;
 	}
-	///      OPERATORS   ///
+	///    OPERATORS_IN   ///
 	Fraction& operator=(const Fraction& other)// =
 	{
 		this->integer = other.integer;
@@ -82,7 +88,7 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
-	///   Methods  ///
+	///		Methods	   ///
 	Fraction to_improper()
 	{
 		numerator += integer * denominator;
@@ -104,11 +110,11 @@ public:
 			cout << numerator << "/" << denominator;
 			if (integer)cout << ")";
 		}
-		else if (integer==0)cout << 0;
+		else if (integer == 0)cout << 0;
 		cout << endl;
 	}
 };
-
+///    OPERATORS_OUT   ///
 Fraction operator*(Fraction left, Fraction right)
 {
 	left.to_improper();
@@ -132,8 +138,37 @@ Fraction operator*(Fraction left, Fraction right)
 	return Fraction(
 		left.get_numerator() * right.get_numerator(),
 		left.get_denominator() * right.get_denominator()
-		).to_proper();
-} 
+	).to_proper();
+}
+Fraction operator/(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+
+	return Fraction(
+		left.get_numerator() * right.get_denominator(),
+		left.get_denominator() * right.get_numerator()
+	).to_proper();
+}
+Fraction operator+(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return Fraction(
+		((left.get_numerator() * right.get_denominator()) + (right.get_numerator() * left.get_denominator())),
+		(left.get_denominator() * right.get_denominator())
+	).to_proper();
+}
+Fraction operator-(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return Fraction(
+		((left.get_numerator() * right.get_denominator()) - (right.get_numerator() * left.get_denominator())),
+		(left.get_denominator() * right.get_denominator())
+	).to_proper();
+}
+
 //#define CONSTRUCTORS_CHECK
 void main()
 {
@@ -159,5 +194,15 @@ void main()
 
 	Fraction C = A * B;
 	C.print();
+
+	Fraction D = A / B;
+	D.print();
+
+	Fraction Plus = A + B;
+	Plus.print();
+
+	Fraction Minus = A - B;
+	Minus.print();
+
 
 }
