@@ -183,14 +183,12 @@ Point operator+(const Point& left, const Point& right)
 }
 bool operator==(const Point& left, const Point& right)
 {
-	if (left.get_x() == right.get_x() && left.get_y() == right.get_y())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return left.get_x() == right.get_x() && left.get_y() == right.get_y();
+	//return (left == right);
+}
+bool operator!=(const Point& left, const Point& right)
+{
+	return !(left == right);
 }
 
 
@@ -256,7 +254,6 @@ void main()
 	Point E;//Default constructor
 	E = D; //Assignment operator
 	E.print();
-#endif
 	Point A(2, 3);
 Point B(7, 8);
 Point C = A + B;
@@ -265,5 +262,8 @@ C.print();
 A = B++;
 A.print();
 B.print();
+cout<<(Point(2, 3)==Point(2,3))<<endl;
+#endif
+
 
 }
