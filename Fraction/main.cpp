@@ -1,10 +1,10 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 
-// 1. Äëÿ êëàññà 'Fraction' ïåðåãðóçèòü âñå àðèôìåòè÷åñêèå îïåðàòîðû : / , +, -; DONE
-// 2. Ïåðåãðóçèòü ñîñòàâíûå ïðèñâàèâàíèÿ : +=, -=, *=, /=;
-// 3. Ïåðåãðóçèòü Incremento / Decremento(++/ --);
-// 4. Ïåðåãðóçèòü îïåðàòîðû ñðàâíåíèÿ : == , != , > , < , >= , <= ;
+// 1. Ð”Ð»Ñ ÐºÐ»Ð°ÑÑÐ° 'Fraction' Ð¿ÐµÑ€ÐµÐ³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ð²ÑÐµ Ð°Ñ€Ð¸Ñ„Ð¼ÐµÑ‚Ð¸Ñ‡ÐµÑÐºÐ¸Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ : / , +, -; DONE
+// 2. ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ ÑÐ¾ÑÑ‚Ð°Ð²Ð½Ñ‹Ðµ Ð¿Ñ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°Ð½Ð¸Ñ : +=, -=, *=, /=;
+// 3. ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Incremento / Decremento(++/ --);
+// 4. ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ : == , != , > , < , >= , <= ;
 
 class Fraction
 {
@@ -88,6 +88,20 @@ public:
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
 	}
+	Fraction operator+=(Fraction& other)
+	{
+		this->to_improper();
+		other.to_improper();
+		this->numerator = (this->get_numerator() * other.get_denominator() + other.get_numerator() * this->get_denominator());
+		this->denominator = this->get_denominator() * other.get_denominator();
+
+		this->to_proper();
+		other.to_proper();
+		this->to_simplifying();
+		other.to_simplifying();
+
+		return *this;
+	}
 	///		Methods	   ///
 	Fraction to_improper()
 	{
@@ -101,6 +115,20 @@ public:
 		numerator %= denominator;
 		return *this;
 	}
+	Fraction to_simplifying()
+	{
+		int X = this->get_numerator();
+		int Y = this->get_denominator();
+		if (X <= 1 || Y <= 1)return *this;
+		while (X > Y)if (X > Y)X = X - Y; else Y = Y - X;
+		if (!((this->get_numerator() % X) || (this->get_denominator() % X)))
+		{
+			this->set_numerator(this->get_numerator() / X);
+			this->set_denominator(this->get_denominator() / X);
+		}
+		return *this;
+	}
+
 	void print()const
 	{
 		if (integer)cout << integer;
@@ -115,6 +143,7 @@ public:
 	}
 };
 ///    OPERATORS_OUT   ///
+//  overload arithmetic operators  //
 Fraction operator*(Fraction left, Fraction right)
 {
 	left.to_improper();
@@ -168,12 +197,14 @@ Fraction operator-(Fraction left, Fraction right)
 		(left.get_denominator() * right.get_denominator())
 	).to_proper();
 }
+//  compound assignments operators  //
+
+
 
 //#define CONSTRUCTORS_CHECK
 void main()
 {
 	setlocale(LC_ALL, "");
-
 #ifdef CONSTRUCTORS_CHECK
 	Fraction A;
 	A.print();
@@ -203,6 +234,12 @@ void main()
 
 	Fraction Minus = A - B;
 	Minus.print();
+
+	A += B;
+	A += B;
+	A.print();
+	B.print();
+	
 
 
 }
