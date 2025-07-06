@@ -116,6 +116,34 @@ public:
 
 		return *this;
 	}
+	Fraction operator/=(Fraction& other)
+	{
+		this->to_improper();
+		other.to_improper();
+		this->numerator = this->get_numerator() * other.get_denominator();
+		this->denominator = this->get_denominator() * other.get_numerator();
+
+		this->to_proper();
+		other.to_proper();
+		this->to_simplifying();
+		other.to_simplifying();
+
+		return *this;
+	}
+	Fraction operator*=(Fraction& other)
+	{
+		this->to_improper();
+		other.to_improper();
+		this->numerator = this->get_numerator() * other.get_numerator();
+		this->denominator = this->get_denominator() * other.get_denominator();
+
+		this->to_proper();
+		other.to_proper();
+		this->to_simplifying();
+		other.to_simplifying();
+
+		return *this;
+	}
 
 	///		Methods	   ///
 	Fraction to_improper()
@@ -265,6 +293,13 @@ void main()
 	A.print();
 	B.print();
 
+	A *= B;
+	A.print();
+	B.print();
+	
+	A /= B;
+	A.print();
+	B.print();
 
 
 }
