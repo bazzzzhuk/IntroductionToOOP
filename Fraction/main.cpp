@@ -225,7 +225,7 @@ Fraction operator*(Fraction left, Fraction right)
 	return Fraction(
 		left.get_numerator() * right.get_numerator(),
 		left.get_denominator() * right.get_denominator()
-	).to_proper();
+	).to_proper().to_simplifying();
 }
 Fraction operator/(Fraction left, Fraction right)
 {
@@ -235,7 +235,7 @@ Fraction operator/(Fraction left, Fraction right)
 	return Fraction(
 		left.get_numerator() * right.get_denominator(),
 		left.get_denominator() * right.get_numerator()
-	).to_proper();
+	).to_proper().to_simplifying();
 }
 Fraction operator+(Fraction left, Fraction right)
 {
@@ -244,7 +244,7 @@ Fraction operator+(Fraction left, Fraction right)
 	return Fraction(
 		((left.get_numerator() * right.get_denominator()) + (right.get_numerator() * left.get_denominator())),
 		(left.get_denominator() * right.get_denominator())
-	).to_proper();
+	).to_proper().to_simplifying();
 }
 Fraction operator-(Fraction left, Fraction right)
 {
@@ -253,17 +253,14 @@ Fraction operator-(Fraction left, Fraction right)
 	return Fraction(
 		((left.get_numerator() * right.get_denominator()) - (right.get_numerator() * left.get_denominator())),
 		(left.get_denominator() * right.get_denominator())
-	).to_proper();
+	).to_proper().to_simplifying();
 }
 //		comparison operators	//
 bool operator==(Fraction left, Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	bool check = (left.get_numerator() == right.get_numerator()&&left.get_denominator() == right.get_denominator());
-	left.to_proper();
-	right.to_proper();
-	return check;
+	left.to_improper().to_simplifying();
+	right.to_improper().to_simplifying();
+	return left.get_numerator() == right.get_numerator() && left.get_denominator() == right.get_denominator();
 }
 bool operator!=(Fraction left, Fraction right)
 {
@@ -285,13 +282,13 @@ bool operator< (Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
-	return ((left.get_numerator() / left.get_denominator()) < (right.get_numerator() / right.get_denominator()));
+	return (left.get_numerator() / left.get_denominator()) < (right.get_numerator() / right.get_denominator());
 }
 bool operator<=(Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
-	return ((left.get_numerator() / left.get_denominator()) <= (right.get_numerator() / right.get_denominator()));
+	return (left.get_numerator() / left.get_denominator()) <= (right.get_numerator() / right.get_denominator());
 }
 //#define CONSTRUCTORS_CHECK
 #define FRACTION_CHECK
