@@ -1,11 +1,6 @@
 ﻿#include<iostream>
 using namespace std;
 
-// 1. Для класса 'Fraction' перегрузить все арифметические операторы : / , +, -; DONE
-// 2. Перегрузить составные присваивания : +=, -=, *=, /=;
-// 3. Перегрузить Incremento / Decremento(++/ --);
-// 4. Перегрузить операторы сравнения : == , != , > , < , >= , <= ;
-
 class Fraction
 {
 	int integer;
@@ -85,15 +80,38 @@ public:
 		this->integer = other.integer;
 		this->numerator = other.numerator;
 		this->denominator = other.denominator;
-		cout << "CopyAssignment:\t" << this << endl;
+		cout << "CopyAssignment:\t\t" << this << endl;
 		return *this;
 	}
+	Fraction& operator++()
+	{
+		integer++;
+		return *this;
+	}
+	Fraction operator++(int)
+	{
+		Fraction old = *this;
+		integer++;
+		return old;
+	}
+	Fraction& operator--()
+	{
+		integer--;
+		return *this;
+	}
+	Fraction operator--(int)
+	{
+		Fraction old = *this;
+		integer--;
+		return old;
+	}
+//  compound assignments operators  //
 	Fraction operator+=(Fraction& other)
 	{
 		this->to_improper();
 		other.to_improper();
-		this->numerator = (this->get_numerator() * other.get_denominator() + other.get_numerator() * this->get_denominator());
-		this->denominator = this->get_denominator() * other.get_denominator();
+		this->numerator = (this->numerator * other.denominator + other.numerator * this->denominator);
+		this->denominator = this->denominator * other.denominator;
 
 		this->to_proper();
 		other.to_proper();
@@ -106,8 +124,8 @@ public:
 	{
 		this->to_improper();
 		other.to_improper();
-		this->numerator = (this->get_numerator() * other.get_denominator() - other.get_numerator() * this->get_denominator());
-		this->denominator = this->get_denominator() * other.get_denominator();
+		this->numerator = (this->numerator* other.denominator - other.numerator * this->denominator);
+		this->denominator = this->denominator * other.denominator;
 
 		this->to_proper();
 		other.to_proper();
@@ -120,8 +138,8 @@ public:
 	{
 		this->to_improper();
 		other.to_improper();
-		this->numerator = this->get_numerator() * other.get_denominator();
-		this->denominator = this->get_denominator() * other.get_numerator();
+		this->numerator = this->numerator * other.denominator;
+		this->denominator = this->denominator * other.numerator;
 
 		this->to_proper();
 		other.to_proper();
@@ -144,7 +162,6 @@ public:
 
 		return *this;
 	}
-
 	///		Methods	   ///
 	Fraction to_improper()
 	{
@@ -183,7 +200,7 @@ public:
 		cout << endl;
 	}
 };
-///    OPERATORS_OUT   ///
+///     OPERATORS_OUT_OF_CLASS     ///
 //  overload arithmetic operators  //
 Fraction operator*(Fraction left, Fraction right)
 {
@@ -238,11 +255,46 @@ Fraction operator-(Fraction left, Fraction right)
 		(left.get_denominator() * right.get_denominator())
 	).to_proper();
 }
-//  compound assignments operators  //
-
-
-
+//		comparison operators	//
+bool operator==(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	bool check = (left.get_numerator() == right.get_numerator()&&left.get_denominator() == right.get_denominator());
+	left.to_proper();
+	right.to_proper();
+	return check;
+}
+bool operator!=(Fraction left, Fraction right)
+{
+	return !(left == right);
+}
+bool operator>(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return ((left.get_numerator() / left.get_denominator()) > (right.get_numerator()/right.get_denominator()));
+}
+bool operator>=(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return ((left.get_numerator() / left.get_denominator()) >= (right.get_numerator()/right.get_denominator()));
+}
+bool operator<(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return ((left.get_numerator() / left.get_denominator()) < (right.get_numerator() / right.get_denominator()));
+}
+bool operator<=(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return ((left.get_numerator() / left.get_denominator()) <= (right.get_numerator() / right.get_denominator()));
+}
 //#define CONSTRUCTORS_CHECK
+#define FRACTION_CHECK
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -259,6 +311,7 @@ void main()
 	Fraction D(2, 3, 4);
 	D.print();
 #endif
+#ifdef FRACTION_CHECK
 	Fraction A(1, 2, 3);
 	A.print();
 	Fraction B(2, 3, 4);
@@ -276,7 +329,6 @@ void main()
 	Fraction Minus = A - B;
 	Minus.print();
 	cout << "+=" << endl;
-
 
 	A.print();
 	B.print();
@@ -301,5 +353,25 @@ void main()
 	A.print();
 	B.print();
 
+	
+	A = ++B++;
+	A.print();
+	B.print();
 
+	B = A++;
+	A.print();
+	B.print();
+
+	A--;
+	B = --A;
+	A.print();
+	B.print();
+
+	cout << "== "<<(Fraction(2,3) == Fraction(2,3))<<endl;
+	cout << "!= "<<(Fraction(2,3) != Fraction(2,4))<<endl;
+	cout << "> "<<(Fraction(7, 3) > Fraction(3, 2, 4)) << endl;
+	cout << "< "<<(Fraction(2,7, 3) < Fraction(2, 4)) << endl;
+	cout << ">= "<<(Fraction(2, 4) >= Fraction(2, 4)) << endl;
+	cout << "<= "<<(Fraction(1,2, 4) <= Fraction(2, 4)) << endl;
+#endif
 }
