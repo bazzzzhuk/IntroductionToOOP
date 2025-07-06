@@ -88,7 +88,7 @@ public:
 		integer++;
 		return *this;
 	}
-	Fraction operator++(int)
+	Fraction  operator++(int)
 	{
 		Fraction old = *this;
 		integer++;
@@ -99,7 +99,7 @@ public:
 		integer--;
 		return *this;
 	}
-	Fraction operator--(int)
+	Fraction  operator--(int)
 	{
 		Fraction old = *this;
 		integer--;
@@ -163,7 +163,7 @@ public:
 		return *this;
 	}
 	///		Methods	   ///
-	Fraction to_improper()
+	Fraction  to_improper()
 	{
 		numerator += integer * denominator;
 		integer = 0;
@@ -175,7 +175,7 @@ public:
 		numerator %= denominator;
 		return *this;
 	}
-	Fraction to_simplifying()
+	Fraction  to_simplifying()// ищет наибольший общий делитель (НОД) по алгоритму Евклида и упрощает дробь
 	{
 		int X = numerator;
 		int Y = denominator;
@@ -269,7 +269,7 @@ bool operator!=(Fraction left, Fraction right)
 {
 	return !(left == right);
 }
-bool operator>(Fraction left, Fraction right)
+bool operator> (Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
@@ -281,7 +281,7 @@ bool operator>=(Fraction left, Fraction right)
 	right.to_improper();
 	return ((left.get_numerator() / left.get_denominator()) >= (right.get_numerator()/right.get_denominator()));
 }
-bool operator<(Fraction left, Fraction right)
+bool operator< (Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
@@ -354,13 +354,15 @@ void main()
 	B.print();
 
 	
-	A = ++B++;
+	A = ++B++;// !!!
 	A.print();
 	B.print();
 
 	B = A++;
 	A.print();
 	B.print();
+
+	//B += A++;//!!!
 
 	A--;
 	B = --A;
