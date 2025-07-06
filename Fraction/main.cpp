@@ -102,6 +102,21 @@ public:
 
 		return *this;
 	}
+	Fraction operator-=(Fraction& other)
+	{
+		this->to_improper();
+		other.to_improper();
+		this->numerator = (this->get_numerator() * other.get_denominator() - other.get_numerator() * this->get_denominator());
+		this->denominator = this->get_denominator() * other.get_denominator();
+
+		this->to_proper();
+		other.to_proper();
+		this->to_simplifying();
+		other.to_simplifying();
+
+		return *this;
+	}
+
 	///		Methods	   ///
 	Fraction to_improper()
 	{
@@ -117,15 +132,13 @@ public:
 	}
 	Fraction to_simplifying()
 	{
-		int X = this->get_numerator();
-		int Y = this->get_denominator();
+		int X = numerator;
+		int Y = denominator;
 		if (X <= 1 || Y <= 1)return *this;
-		while (X > Y)if (X > Y)X = X - Y; else Y = Y - X;
-		if (!((this->get_numerator() % X) || (this->get_denominator() % X)))
-		{
-			this->set_numerator(this->get_numerator() / X);
-			this->set_denominator(this->get_denominator() / X);
-		}
+		while (X != Y)if (X > Y)X = X - Y; else Y = Y - X;
+		//cout << "X= " << X << endl;
+		numerator=numerator / X;
+		denominator=denominator/ X;
 		return *this;
 	}
 
@@ -234,12 +247,24 @@ void main()
 
 	Fraction Minus = A - B;
 	Minus.print();
+	cout << "+=" << endl;
 
-	A += B;
-	A += B;
+
 	A.print();
 	B.print();
-	
+	A += B;
+	B += A;
+	A.print();
+	B.print();
+
+	B -= A;
+	A.print();
+	B.print();
+
+	A -= B;
+	A.print();
+	B.print();
+
 
 
 }
