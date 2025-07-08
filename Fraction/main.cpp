@@ -3,6 +3,8 @@ using namespace std;
 class Fraction;
 Fraction operator*(Fraction left, Fraction right);
 Fraction operator/(const Fraction& left, const Fraction& right);
+Fraction operator+(Fraction left, Fraction right);
+Fraction operator-(Fraction left, Fraction right);
 
 class Fraction
 {
@@ -10,15 +12,15 @@ class Fraction
 	int numerator;
 	int denominator;
 public:
-	int get_integer()const
+	int  get_integer()const
 	{
 		return integer;
 	}
-	int get_numerator()const
+	int  get_numerator()const
 	{
 		return numerator;
 	}
-	int get_denominator()const
+	int  get_denominator()const
 	{
 		return denominator;
 	}
@@ -77,7 +79,7 @@ public:
 		cout << "Destructor:\t\t" << this << endl;
 	}
 	///      OPERATORS   ///
-	Fraction& operator=(const Fraction& other)// =
+	Fraction& operator= (const Fraction& other)// =
 	{
 		this->integer = other.integer;
 		this->numerator = other.numerator;
@@ -93,6 +95,14 @@ public:
 	{
 		return *this = *this / other;
 	}
+	Fraction& operator+=(const Fraction& other)
+	{
+		return *this = *this + other;
+	}
+	Fraction& operator-=(const Fraction& other)
+	{
+		return *this = *this - other;
+	}
 	//		INCREMENTO/DECREMENTO		//
 	Fraction& operator++()
 	{
@@ -105,9 +115,20 @@ public:
 		integer++;
 		return old;
 	}
+	Fraction& operator--()
+	{
+		integer--;
+		return *this;
+	}
+	const Fraction operator--(int)
+	{
+		Fraction old = *this;
+		integer--;
+		return old;
+	}
 
 	///   Methods  ///
-	Fraction to_improper()
+	Fraction  to_improper()
 	{
 		numerator += integer * denominator;
 		integer = 0;
@@ -119,7 +140,7 @@ public:
 		numerator %= denominator;
 		return *this;
 	}
-	Fraction inverted()const
+	Fraction  inverted()const
 	{
 		Fraction inverted = *this;
 		inverted.to_improper();
@@ -160,11 +181,21 @@ Fraction operator+(Fraction left, Fraction right)
 	left.to_improper();
 	right.to_improper();
 	return Fraction
-		(
-			left.get_numerator() * right.get_denominator() + right.get_numerator() * left.get_denominator(),
-			left.get_denominator() * right.get_denominator()
-			).to_proper();
+	(
+		left.get_numerator() * right.get_denominator() + right.get_numerator() * left.get_denominator(),
+		left.get_denominator() * right.get_denominator()
+	).to_proper().reduce();
 
+}
+Fraction operator-(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return Fraction
+	(
+		left.get_numerator() * right.get_denominator() - right.get_numerator() * left.get_denominator(),
+		left.get_denominator() * right.get_denominator()
+	).to_proper().reduce();
 }
 Fraction operator*(Fraction left, Fraction right)
 {
@@ -196,9 +227,45 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 	return left * right.inverted();
 
 }
+///		Condition_operators			//
+bool operator==(Fraction left,Fraction right)
+{
+	cout << "!!!" << endl;
+	left.to_improper();
+	right.to_improper();
+	return	left.get_numerator() * right.get_denominator() ==
+			left.get_denominator() * right.get_numerator();
+}
+bool operator!=(const Fraction& left, const Fraction& right)
+{
+	return !(left == right);
+}
+bool operator>(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return  left.get_numerator() * right.get_denominator() >
+			left.get_denominator() * right.get_numerator();
+}
+bool operator<(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return  left.get_numerator() * right.get_denominator() <
+			left.get_denominator() * right.get_numerator();
+}
+bool operator>=(const Fraction& left, const Fraction& right)
+{
+	return !(left < right);
+}
+bool operator<=(const Fraction& left, const Fraction& right)
+{
+	return !(left > right);
+}
 //#define CONSTRUCTORS_CHECK
-#define ARITHMETICAL_OPERATORS_CHECK
+//#define ARITHMETICAL_OPERATORS_CHECK
 //#define INCREMENTO_DECREMENTO_CHECK
+#define CONDITION_CHECK
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -237,11 +304,37 @@ void main()
 	C = A + B;
 	C.print();
 
+	C = B - A;
+	C.print();
+
+	C += A;
+	C += A;
+	C.print();
+
+	C -= B;
+	C.print();
+
 #endif
 #ifdef INCREMENTO_DECREMENTO_CHECK
 	Fraction A(2, 3, 4);
 	Fraction B = ++A;
 	A.print();
 	B.print();
+	B--;
+	B = --A;
+	A.print();
+	B.print();
+
+#endif
+#ifdef CONDITION_CHECK
+	Fraction A(2, 3, 4);
+	A.print();
+	Fraction B(2, 3, 4);
+	B.print();
+	cout << (A != B) << endl;
+	cout << (A > B) << endl;
+	cout << (A < B) << endl;
+	cout << (A >= B) << endl;
+
 #endif
 }
