@@ -230,7 +230,6 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 ///		Condition_operators			//
 bool operator==(Fraction left,Fraction right)
 {
-	cout << "!!!" << endl;
 	left.to_improper();
 	right.to_improper();
 	return	left.get_numerator() * right.get_denominator() ==
@@ -327,14 +326,14 @@ void main()
 
 #endif
 #ifdef CONDITION_CHECK
-	Fraction A(2, 3, 4);
-	A.print();
-	Fraction B(2, 3, 4);
-	B.print();
-	cout << (A != B) << endl;
-	cout << (A > B) << endl;
-	cout << (A < B) << endl;
-	cout << (A >= B) << endl;
-
+	//Fraction A(2, 3, 4);
+	//A.print();
+	//Fraction B(2, 3, 4);
+	//B.print();
+	cout<<"!= " << (Fraction(1,2) != Fraction(2,3)) << endl;
+	/*cout <<"> " << (A > B) << endl;
+	cout << "< " << (A < B) << endl;
+	cout <<">=" << (A >= B) << endl;*/
 #endif
+
 }
