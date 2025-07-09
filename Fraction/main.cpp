@@ -356,7 +356,7 @@ void main()
 	i.print();
 }*///delete?
 	Fraction A(2, 3, 4);
-cout: "enter drob: ";
+	cout << "enter drob: ";
 	cin >> A;
 	cout << A << endl;
 #endif // STREAM_CHECK
