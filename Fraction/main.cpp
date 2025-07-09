@@ -228,12 +228,12 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 
 }
 ///		Condition_operators			//
-bool operator==(Fraction left,Fraction right)
+bool operator==(Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
 	return	left.get_numerator() * right.get_denominator() ==
-			left.get_denominator() * right.get_numerator();
+		left.get_denominator() * right.get_numerator();
 }
 bool operator!=(const Fraction& left, const Fraction& right)
 {
@@ -244,14 +244,14 @@ bool operator>(Fraction left, Fraction right)
 	left.to_improper();
 	right.to_improper();
 	return  left.get_numerator() * right.get_denominator() >
-			left.get_denominator() * right.get_numerator();
+		left.get_denominator() * right.get_numerator();
 }
 bool operator<(Fraction left, Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
 	return  left.get_numerator() * right.get_denominator() <
-			left.get_denominator() * right.get_numerator();
+		left.get_denominator() * right.get_numerator();
 }
 bool operator>=(const Fraction& left, const Fraction& right)
 {
@@ -261,10 +261,25 @@ bool operator<=(const Fraction& left, const Fraction& right)
 {
 	return !(left > right);
 }
+
+std::ostream& operator<<(std::ostream& os, const Fraction& obj)
+{
+	if (obj.get_integer())os << obj.get_integer();
+	if (obj.get_numerator())
+	{
+		if (obj.get_integer())os << "(";
+		os << obj.get_numerator() << "/" << obj.get_denominator();
+		if (obj.get_integer())os << ")";
+	}
+	else if (obj.get_integer() == 0)os << 0;
+	return os;
+}
 //#define CONSTRUCTORS_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
 //#define INCREMENTO_DECREMENTO_CHECK
-#define CONDITION_CHECK
+//#define CONDITION_CHECK
+//#define STREAM_CHECK
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -330,10 +345,20 @@ void main()
 	//A.print();
 	//Fraction B(2, 3, 4);
 	//B.print();
-	cout<<"!= " << (Fraction(1,2) != Fraction(2,3)) << endl;
+	cout << "!= " << (Fraction(1, 2) != Fraction(2, 3)) << endl;
 	/*cout <<"> " << (A > B) << endl;
 	cout << "< " << (A < B) << endl;
 	cout <<">=" << (A >= B) << endl;*/
 #endif
+#ifdef STREAM_CHECK
+	/*for (Fraction i(9, 1, 2); i > 0; --i)
+{
+	i.print();
+}*///delete?
+	Fraction A(2, 3, 4);
+cout: "enter drob: ";
+	cin >> A;
+	cout << A << endl;
+#endif // STREAM_CHECK
 
 }
