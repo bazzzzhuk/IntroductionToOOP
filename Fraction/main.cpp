@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<math.h>
 using namespace std;
 class Fraction;
@@ -57,17 +57,18 @@ public:
 	}
 	explicit Fraction(double doubler)
 	{
-		double num = (doubler - (int)doubler);
-		long double d = num + 0.000001;
+		double num = doubler - (int)doubler;
+		long double d = num + 0.00000000001;
 		long long test = 1;
 		int count = 0;
-		while (test != d) {
+		while (test != d) //РџРѕРґСЃС‡С‘С‚ СЂРµРіРёСЃС‚СЂРѕРІ
+		{
 			d *= 10;
 			test = (int)d;
 			if (!(test % 10))break;
 			count++;
 		}
-		this->integer = double((int)doubler);
+		this->integer =(int)doubler;
 		this->numerator = num * pow(10, count);
 		this->denominator = pow(10, count);
 		this->reduce();
@@ -82,13 +83,6 @@ public:
 	}
 
 	Fraction(int integer, int numerator, int denominator)
-	{
-		this->integer = integer;
-		this->numerator = numerator;
-		this->set_denominator(denominator);
-		cout << "Constructor:\t\t" << this << endl;
-	}
-	Fraction(double integer, double numerator, double denominator)
 	{
 		this->integer = integer;
 		this->numerator = numerator;
@@ -319,7 +313,7 @@ std::istream& operator>>(std::istream& os, Fraction& obj)
 	obj.set_integer(i);
 	obj.set_numerator(n);
 	obj.set_denominator(d);
-	return os;//не совсем понятный синтаксис, но интуитивно сделал, работает.
+	return os;//РЅРµ СЃРѕРІСЃРµРј РїРѕРЅСЏС‚РЅС‹Р№ СЃРёРЅС‚Р°РєСЃРёСЃ, РЅРѕ РёРЅС‚СѓРёС‚РёРІРЅРѕ СЃРґРµР»Р°Р», СЂР°Р±РѕС‚Р°РµС‚.
 	}
 //#define CONSTRUCTORS_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
@@ -328,8 +322,8 @@ std::istream& operator>>(std::istream& os, Fraction& obj)
 //#define STREAM_CHECK
 //#define TYPE_CONVERSION_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
-//#define CONVERSION_FROM_CLASS_TO_OTHER
-#define HAVE_A_NICE_DAY
+#define CONVERSION_FROM_CLASS_TO_OTHER
+//#define HAVE_A_NICE_DAY
 
 void main()
 {
@@ -422,8 +416,8 @@ void main()
 #ifdef CONVERSION_FROM_OTHER_TO_CLASS
 
 	/*
-	1. From other to Class - из других типов в наш
-	2. From Class to other - из нашего типа
+	1. From other to Class - РёР· РґСЂСѓРіРёС… С‚РёРїРѕРІ РІ РЅР°С€
+	2. From Class to other - РёР· РЅР°С€РµРіРѕ С‚РёРїР°
 
 	*/
 	Fraction A = (Fraction)5;//Single-Argument constructor (from less to more)
@@ -431,8 +425,8 @@ void main()
 	Fraction B;
 	B = Fraction(8);
 	//Single-arg-constructor(From less to more)
-  //singleArgConstr создает из 8 временный объект
- // а оператор присваивания просто записывает его в существующий объект В
+  //singleArgConstr СЃРѕР·РґР°РµС‚ РёР· 8 РІСЂРµРјРµРЅРЅС‹Р№ РѕР±СЉРµРєС‚
+ // Р° РѕРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ РїСЂРѕСЃС‚Рѕ Р·Р°РїРёСЃС‹РІР°РµС‚ РµРіРѕ РІ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ РѕР±СЉРµРєС‚ Р’
 
 
 #endif
