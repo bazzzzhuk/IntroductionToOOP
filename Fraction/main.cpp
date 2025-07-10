@@ -1,4 +1,5 @@
 #include<iostream>
+#include<math.h>
 using namespace std;
 class Fraction;
 Fraction operator*(Fraction left, Fraction right);
@@ -9,6 +10,7 @@ Fraction operator-(Fraction left, Fraction right);
 class Fraction
 {
 	int integer;
+	double doubler;
 	int numerator;
 	int denominator;
 public:
@@ -24,6 +26,7 @@ public:
 	{
 		return denominator;
 	}
+	 
 	void set_integer(int integer)
 	{
 		this->integer = integer;
@@ -45,11 +48,29 @@ public:
 		set_denominator(1);
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
+		cout << "SingleArgConstructor:\t" << this << endl;
+	}
+	explicit Fraction(double doubler)
+	{
+		double num = (doubler - (int)doubler);
+		long double d = num + 0.000001;
+		long long test = 1;
+		int count = 0;
+		while (test != d) {
+			d *= 10;
+			test = (int)d;
+			if (!(test % 10))break;
+			count++;
+		}
+		this->integer = double((int)doubler);
+		this->numerator = num * pow(10, count);
+		this->denominator = pow(10, count);
+		this->reduce();
 		cout << "SingleArgConstructor:\t" << this << endl;
 	}
 	Fraction(int numerator, int denominator)
@@ -61,6 +82,13 @@ public:
 	}
 
 	Fraction(int integer, int numerator, int denominator)
+	{
+		this->integer = integer;
+		this->numerator = numerator;
+		this->set_denominator(denominator);
+		cout << "Constructor:\t\t" << this << endl;
+	}
+	Fraction(double integer, double numerator, double denominator)
 	{
 		this->integer = integer;
 		this->numerator = numerator;
@@ -125,6 +153,16 @@ public:
 		Fraction old = *this;
 		integer--;
 		return old;
+	}
+	//    TYPE_CAST_OPERATORS	//
+	explicit operator int()const
+	{
+		//to_improper();//Evalueate as a constant
+		return integer + numerator / denominator;
+	}
+	explicit operator double()const
+	{
+		return integer + numerator / (double)denominator;
 	}
 
 	///   Methods  ///
@@ -274,11 +312,24 @@ std::ostream& operator<<(std::ostream& os, const Fraction& obj)
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
 }
+std::istream& operator>>(std::istream& os, Fraction& obj)
+	{
+	int i, n, d;
+	os >> i >> n >> d;
+	obj.set_integer(i);
+	obj.set_numerator(n);
+	obj.set_denominator(d);
+	return os;//не совсем понятный синтаксис, но интуитивно сделал, работает.
+	}
 //#define CONSTRUCTORS_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
 //#define INCREMENTO_DECREMENTO_CHECK
 //#define CONDITION_CHECK
 //#define STREAM_CHECK
+//#define TYPE_CONVERSION_BASICS
+//#define CONVERSION_FROM_OTHER_TO_CLASS
+//#define CONVERSION_FROM_CLASS_TO_OTHER
+#define HAVE_A_NICE_DAY
 
 void main()
 {
@@ -356,9 +407,48 @@ void main()
 	i.print();
 }*///delete?
 	Fraction A(2, 3, 4);
-	cout << "enter drob: ";
+	cout << "enter fraction: ";
 	cin >> A;
 	cout << A << endl;
 #endif // STREAM_CHECK
+#ifdef TYPE_CONVERSION_BASICS
+
+	int a = 2;//no conversion
+	double b = 3;	 //conversion from less to more
+	int c = b;		 //conversion from more to less without data loss
+	int d = 5.5;	 //conversion from more to less with data loss
+
+#endif 
+#ifdef CONVERSION_FROM_OTHER_TO_CLASS
+
+	/*
+	1. From other to Class - из других типов в наш
+	2. From Class to other - из нашего типа
+
+	*/
+	Fraction A = (Fraction)5;//Single-Argument constructor (from less to more)
+	cout << A << endl;
+	Fraction B;
+	B = Fraction(8);
+	//Single-arg-constructor(From less to more)
+  //singleArgConstr создает из 8 временный объект
+ // а оператор присваивания просто записывает его в существующий объект В
+
+
+#endif
+#ifdef CONVERSION_FROM_CLASS_TO_OTHER
+	Fraction A(2, 3, 4);
+	A.to_improper().print();
+	int a = (int)A;
+	cout <<"int a= " << a << endl;
+
+	double b = (double)A;
+	cout <<"double b= " << b << endl;
+#endif 
+#ifdef HAVE_A_NICE_DAY
+	Fraction A = (Fraction)2.75;
+	cout<<"A= " << A << endl;
+#endif
+
 
 }
