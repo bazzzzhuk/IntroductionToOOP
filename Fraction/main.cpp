@@ -315,22 +315,44 @@ std::ostream& operator<<(std::ostream& os, const Fraction& obj)
 }
 std::istream& operator>>(std::istream& os, Fraction& obj)
 	{
-	int i, n, d;
+	/*int i, n, d;
 	os >> i >> n >> d;
 	obj.set_integer(i);
 	obj.set_numerator(n);
-	obj.set_denominator(d);
+	obj.set_denominator(d);*/
+
+	const int SIZE = 256;
+	char buffer[SIZE] = {};
+	//os >> buffer;
+	os.getline(buffer, SIZE);
+	const char delimetrs[] = "(/ ,)";
+	int n = 0;
+	int numbers[3] = {};
+	for (
+		char* pch = strtok(buffer, delimetrs); 
+		pch&&n<3; 
+		pch = strtok(NULL, delimetrs)
+		)
+		numbers[n++] = atoi(pch);
+	//for (int i = 0; i < n; i++)cout << numbers[i] << "\t"; cout << endl;
+	switch (n)
+	{
+	case 0: obj = Fraction{}; break;
+	case 1: obj = Fraction(numbers[0]); break;
+	case 2: obj = Fraction(numbers[0],numbers[1]); break;
+	case 3: obj = Fraction(numbers[0],numbers[1],numbers[2]); break;
+	}
 	return os;//не совсем понятный синтаксис, но интуитивно сделал, работает.
 	}
 //#define CONSTRUCTORS_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
 //#define INCREMENTO_DECREMENTO_CHECK
 //#define CONDITION_CHECK
-//#define STREAM_CHECK
+#define STREAM_CHECK
 //#define TYPE_CONVERSION_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
 //#define CONVERSION_FROM_CLASS_TO_OTHER
-#define HAVE_A_NICE_DAY
+//#define HAVE_A_NICE_DAY
 
 void main()
 {
