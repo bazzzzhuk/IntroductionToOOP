@@ -57,21 +57,28 @@ public:
 	}
 	explicit Fraction(double doubler)
 	{
-		double num = doubler - (int)doubler;
-		long double d = num + 0.00000000001;
-		long long test = 1;
-		int count = 0;
-		while (test != d) //Подсчёт регистров
-		{
-			d *= 10;
-			test = (int)d;
-			if (!(test % 10))break;
-			count++;
-		}
-		this->integer =(int)doubler;
-		this->numerator = num * pow(10, count);
-		this->denominator = pow(10, count);
-		this->reduce();
+		//double num = doubler - (int)doubler;
+		//long double d = num + 1e-10;
+		//long long test = 1;
+		//int count = 0;
+		//while (test != d) //Подсчёт регистров
+		//{
+		//	d *= 10;
+		//	test = (int)d;
+		//	if (!(test % 10))break;
+		//	count++;
+		//}
+		//this->integer =(int)doubler;
+		//this->numerator = num * pow(10, count);
+		//this->denominator = pow(10, count);
+
+		integer = doubler;
+		doubler -= integer;
+		denominator = 1e+9;
+		numerator = doubler * denominator;
+
+
+		reduce();
 		cout << "SingleArgConstructor:\t" << this << endl;
 	}
 	Fraction(int numerator, int denominator)
@@ -322,8 +329,8 @@ std::istream& operator>>(std::istream& os, Fraction& obj)
 //#define STREAM_CHECK
 //#define TYPE_CONVERSION_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
-#define CONVERSION_FROM_CLASS_TO_OTHER
-//#define HAVE_A_NICE_DAY
+//#define CONVERSION_FROM_CLASS_TO_OTHER
+#define HAVE_A_NICE_DAY
 
 void main()
 {
