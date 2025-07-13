@@ -1,0 +1,34 @@
+int n=1;
+
+String()
+{
+char* str = new char[n];
+}
+String(const char& other)
+{
+n = Length(other);
+char* buf = new char[n-1];
+for(int i=0; other[i];i++)buf[i]=other[i];
+delete[] str;
+str = buf;
+buf = nullptr;
+}
+String& operator=(const char* other)
+{
+n = Length(other);
+char* buf = new char[n-1];
+for(int i=0; other[i];i++)buf[i]=other[i];
+delete[] this;
+this = buf;
+buf = nullptr;
+}
+String& operator+(String& other)
+{
+nn = n+Length(other)-1;
+char* buf = new char[n-1];
+for(int i=0; i < nn;i++)buf[i]=(i<n?this[i]:other[i-n]);
+delete[] str;
+str = buf;
+buf = nullptr;
+n=nn;
+}
