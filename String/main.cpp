@@ -6,14 +6,14 @@ String operator+(const String& str1, const String& str2);
 class String
 {
 
-	int n = 1;
+	int n;
 	char* str;
 public:
 	int get_n()const
 	{
 		return n;
 	}
-	char* get_string()const
+	const char* get_string()const
 	{
 		return str;
 	}
@@ -58,7 +58,7 @@ public:
 	String(const char other[])
 	{ 
 		n = strlen(other);
-		char* buf = new char[n + 1];
+		char* buf = new char[n + 1] {};
 		for (int i = 0; other[i]; i++)buf[i] = other[i];
 		delete[] str;
 		str = buf;
@@ -69,7 +69,7 @@ public:
 	String(char* other)
 	{ 
 		n = length(other);
-		char* buf = new char[n + 1];
+		char* buf = new char[n + 1] {};
 		for (int i = 0; other[i]; i++)buf[i] = other[i];
 		delete[] str;
 		str = buf;
@@ -98,7 +98,7 @@ public:
 	{
 		delete[] this->str;
 		this->n = other.n;
-		this->str = new char[n] {};
+		this->str = new char[n+1] {};
 		for (int i = 0; i < n; i++)this->str[i] = other.str[i];
 		cout << "CopyAssignment:\t" << this << endl;
 		return *this;
@@ -132,13 +132,6 @@ public:
 			cout << this->str[i];
 		}
 	}
-	/*void Print(String str)const
-	{
-		for (int i = 0; i<n; i++)
-		{
-			cout << str.str[i];
-		}
-	}*/
 	/*void Print()const
 	{
 		cout << str<<endl;
@@ -157,7 +150,18 @@ public:
 		//buf = nullptr;
 		return String(buf);
 	}
+	ostream& operator<<(ostream& os, const String& str)
+	{
+		return os << str.get_string();
+	}
 
+	void Print(const String& str)
+	{
+		for (int i = 0; i<str.get_n(); i++)
+		{
+			cout << str.get_string(i);
+		}
+	}
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -174,4 +178,9 @@ void main()
 	String str3 = str1 + str2;
 	cout << "str3= ";
 	str3.Print();
+	
+	cout << endl;
+
+	cout << "str3= " << str3 << endl;
+	Print(str3);
 }
