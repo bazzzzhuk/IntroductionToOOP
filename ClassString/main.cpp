@@ -30,7 +30,7 @@ public:
 		//this->str = new char[size] {};
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	String(const char* str):size(strlen(str)+1),str(new char[size]{})
+	String(const char* str):String (strlen(str)+1)
 	{
 		//this->size = strlen(str) + 1; // функция возвращает размер строки в символах,
 		//+1 нужен чтобы выделилась память под NULL-terminator
@@ -38,16 +38,16 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "Constructor:\t\t" << this << endl;
 	}
-	String(const String& other):size(other.size), str(new char [size]{})
+	String(const String& other):String(other.str)
 	{
 		//this->str = other.str; //Shallow copy
 		//DeepCopy:
 		/*this->size = other.size;
 		this->str = new char[size] {};*/
-		for (int i = 0; i < size; i++)
+		/*for (int i = 0; i < size; i++)
 		{
 			this->str[i] = other.str[i];
-		}
+		}*/
 		cout << "CopyConstructor:\t" << this << endl;
 	}
 	String& operator=(String& other)
@@ -92,7 +92,6 @@ public:
 		other.size = 0;
 		other.str = nullptr;
 		cout << "MoveConstructor:\t" << this << endl;
-		
 	}
 	~String() {
 		delete[] str;
