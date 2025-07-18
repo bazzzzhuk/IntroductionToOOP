@@ -56,9 +56,23 @@ public:
 		if (this == &other)return *this;
 		delete[] this->str;
 		this->size = other.size;
-		this->str = new char[size + 1] {};
+		this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyAssignment:\t\t" << this << endl;
+		return *this;
+	}
+	String& operator=(String&& other)
+	{
+		if (this == &other)return *this;
+		//delete old memory
+		delete[]str;
+		//shallowCopy
+		this->size - other.size;
+		this->str = other.str;
+		//обнуляем принимаемый объект
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveAssignment:\t\t" << this << endl;
 		return *this;
 	}
 	char operator[](int i)const
@@ -68,6 +82,17 @@ public:
 	char& operator[](int i)
 	{
 		return str[i];
+	}
+	String(String&& other)
+	{
+		//moveConstructor
+		this->size = other.size;
+		this->str = other.str;
+		//обнуляем принимаемый объект для того чтобы предотвратить удаление его ресурсов деструктором
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveConstructor:\t" << this << endl;
+		
 	}
 	~String() {
 		delete[] str;
@@ -116,7 +141,8 @@ void main()
 	String str4 = "World";
 	cout << str4 << endl;
 
-	String str5 = str3 + str4;
+	String str5;
+	str5 = str3 + str4;
 	cout << str5 << endl;
 #endif // CONSTR_CHECK
 #ifdef COPY_SEMANTIC_CHECK
